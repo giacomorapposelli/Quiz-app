@@ -108,7 +108,7 @@ const App = () => {
         <>
             <GlobalStyle category={category} />
             <Wrapper>
-                <h1>TRIVIAL GAME</h1>
+                <h1>MINI TRIVIAL</h1>
                 {!gameStarted ? (
                     <Form
                         startTrivia={startTrivia}
