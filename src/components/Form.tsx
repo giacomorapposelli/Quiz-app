@@ -36,7 +36,6 @@ const Form: React.FC<FormProps> = (props) => (
             <option value={Category.MOVIES}>Movies</option>
             <option value={Category.MUSIC}>Music</option>
             <option value={Category.VIDEOGAMES}>Video Games</option>
-            <option value={Category.SCIENCE}>Science & Nature</option>
             <option value={Category.MITHOLOGY}>Mithology</option>
         </select>
         <label htmlFor='questions'>Number Of Questions: </label>

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import QuestionCard from './components/QuestionCard';
 import { fetchQuizQuestions } from './API';
-import { GlobalStyle, Wrapper } from './AppStyled';
+import { GlobalStyle, Wrapper } from './GlobalStyle';
 import { QuestionState } from './API';
 import Form from './components/Form';
 import GameOver from './components/GameOver';
@@ -24,8 +24,11 @@ const App = () => {
     const [difficulty, setDifficulty] = useState<string>('easy');
     const [category, setCategory] = useState<string>('9');
     const [totalQuestions, setTotalQuestions] = useState<string>('5');
+    const [counter, setCounter] = useState<number>(0);
+    const [isActive, setIsActive] = useState(false);
 
     const startTrivia = async () => {
+        setCounter(30);
         setLoading(true);
         setGameStarted(true);
 
@@ -39,9 +42,11 @@ const App = () => {
         setUserAnswers([]);
         setNumber(0);
         setLoading(false);
+        setIsActive(true);
     };
 
     const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>): void => {
+        setIsActive(false);
         if (gameStarted) {
             const answer = e.currentTarget.value;
             const correct = questions[number].correct_answer === answer;
@@ -57,6 +62,9 @@ const App = () => {
     };
 
     const nextQuestion = (): void => {
+        setIsActive(false);
+        setCounter(30);
+        setIsActive(true);
         const nextQuestion = number + 1;
         if (nextQuestion === +totalQuestions) {
             setUserAnswers([]);
@@ -70,7 +78,31 @@ const App = () => {
         setNumber(0);
         setUserAnswers([]);
         setCategory('');
+        setIsActive(false);
+        setCounter(0);
     };
+
+    if (counter === 0 && isActive) {
+        setIsActive(false);
+        const answerObj = {
+            question: questions[number].question,
+            answer: '',
+            correct: false,
+            correctAnswer: questions[number].correct_answer
+        };
+        setUserAnswers((prev) => [...prev, answerObj]);
+    }
+
+    useEffect(() => {
+        let intervalId: any;
+        if (isActive && !loading) {
+            intervalId = setInterval(() => {
+                setCounter((counter) => counter - 1);
+            }, 1000);
+        }
+
+        return () => clearInterval(intervalId);
+    }, [isActive, counter, loading]);
 
     return (
         <>
@@ -110,12 +142,15 @@ const App = () => {
                 {gameStarted &&
                 !loading &&
                 userAnswers.length !== +totalQuestions ? (
-                    <>
+                    <div className='tracker'>
+                        <p className='score'>
+                            Time Left:{' '}
+                            {counter === 1
+                                ? `${counter} second`
+                                : `${counter} seconds`}
+                        </p>
                         <p className='score'>Score: {score}</p>
-                        <button onClick={resetGame} className='quit'>
-                            Quit Game
-                        </button>
-                    </>
+                    </div>
                 ) : null}
                 {gameStarted &&
                 !loading &&

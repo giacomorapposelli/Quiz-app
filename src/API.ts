@@ -24,7 +24,6 @@ export enum Category {
     MOVIES = 11,
     MUSIC = 12,
     VIDEOGAMES = 15,
-    SCIENCE = 17,
     MITHOLOGY = 20,
     GEOGRAPHY = 22,
     HISTORY = 23

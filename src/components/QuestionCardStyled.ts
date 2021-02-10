@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
     max-width: 1100px;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.4);
 
     border-radius: 10px;
     border: 2px solid #f58733;
@@ -29,7 +29,7 @@ type ButtonWrapperProps = {
 export const ButtonWrapper = styled.div<ButtonWrapperProps>`
     transition: all 0.3s ease;
     :hover {
-        opacity: 0.8;
+        opacity: 0.7;
     }
     button {
         cursor: pointer;

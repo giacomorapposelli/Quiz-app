@@ -3,7 +3,6 @@ import movies from './images/movies.jpg';
 import music from './images/music.jpg';
 import history from './images/history.jpg';
 import geography from './images/geography.jpg';
-import science from './images/science.jpg';
 import videogames from './images/videogames.jpg';
 import trivia from './images/trivia.jpg';
 import mithology from './images/mithology.jpg';
@@ -29,8 +28,6 @@ export const GlobalStyle = createGlobalStyle<GlobalProps>`
             : category === '20'
             ? mithology
             : category === '17'
-            ? science
-            : category === '22'
             ? geography
             : trivia}), url(${trivia});
     background-size: cover;
@@ -56,10 +53,16 @@ export const Wrapper = styled.div`
         align-items: center;
     }
 
+    .tracker {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
     .score {
         color: #fff;
-        font-size: 2rem;
-        margin: 20px 0;
+        font-size: 1.5rem;
+        margin: 10px 0;
     }
 
     label {
@@ -103,7 +106,7 @@ export const Wrapper = styled.div`
         box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
         border-radius: 10px;
         height: 40px;
-        margin: 20px 0;
+        margin: 10px 0;
         padding: 0 40px;
     }
 
@@ -143,5 +146,15 @@ export const Wrapper = styled.div`
 
     .spinner {
         height: 70px;
+    }
+
+    @media only screen and (max-width: 720px) {
+        .score {
+            font-size: 1rem;
+        }
+
+        h1 {
+            font-size: 40px;
+        }
     }
 `;
